@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -80,4 +81,19 @@ public class ProductCRUDController {
 				}).thenReturn("redirect:/api/crud/products/to-list?success=The+product+has+been+saved+successfully");
 		}
 	}
+	
+	@GetMapping("/form/{id}")
+	public Mono<String> findById(@PathVariable(name = "id") String productId, Model model) {
+		
+		Mono<Product> product = productService.findById(productId)
+			.doOnNext(p -> log.info("Product found " + p.getName()))
+			.defaultIfEmpty(new Product());
+		
+		model.addAttribute("title", "Update product");
+		model.addAttribute("button", "Update");
+		model.addAttribute("product", product);
+		
+		return Mono.just("form");
+	}
+	
 }

@@ -8,7 +8,7 @@
 	<h1 th:text="${title}"></h1>
 
 	<div>
-		<a th:href="@{/tolist}">volver</a>
+		<h2><a th:href="@{/api/crud/products/to-list}">Volver</a></h2>
 
 		<form th:action="@{/api/crud/products/form}" method="post" th:object="${product}">
 			<input th:if="${product.id != null}" type="hidden" th:field="*{id}" />

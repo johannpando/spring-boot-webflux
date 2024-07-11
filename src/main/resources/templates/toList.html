@@ -7,12 +7,16 @@
 <body>
 <h1 th:text="${title}"></h1>
 
+<h2><a th:href="@{/api/crud/products/form}">New product</a></h2>
+
 <table>
 	<thead>
 		<tr>
-			<th>id</th>
-			<th>name</th>
-			<th>price</th>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Price</th>
+			<th>Create at</th>
+			<th>Update</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,6 +24,8 @@
 			<td th:text="${product.id}"></td>
 			<td th:text="${product.name}"></td>
 			<td th:text="${product.price}"></td>
+			<td th:text="${product.createAt}"></td>
+			<td><a th:href="@{/api/crud/products/form/} + ${product.id}">Update product</a></td>
 		</tr>
 	</tbody>
 </table>
