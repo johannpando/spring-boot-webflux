@@ -16,9 +16,9 @@ import com.johannpando.springboot.webflux.app.models.documents.Product;
 import reactor.core.publisher.Flux;
 
 @Controller
-public class ProductController {
+public class ProductBasicController {
 	
-	private static final Logger log = LoggerFactory.getLogger(ProductController.class);
+	private static final Logger log = LoggerFactory.getLogger(ProductBasicController.class);
 	
 	@Autowired
 	private ProductDAO productDAO;

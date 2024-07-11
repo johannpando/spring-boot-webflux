@@ -2,8 +2,12 @@ package com.johannpando.springboot.webflux.app.models.documents;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,13 +16,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product {
 
+	@Id
 	private String id;
 	
+	@NotEmpty
 	private String name;
 	
-	private double price;
+	@NotNull
+	private Double price;
 	
-	private Date creatAt;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private Date createAt;
 	
 	public Product(String name, double price) {
 		this.name = name;
