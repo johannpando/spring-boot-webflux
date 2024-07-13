@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title th:text="${title}">Product's Form</title>
+	<meta charset="UTF-8">
+	<title th:text="${title}">Product's Form</title>
 </head>
+
 <body>
 	<h1 th:text="${title}"></h1>
 
 	<div>
 		<h2><a th:href="@{/api/crud/products/to-list}">Volver</a></h2>
 
-		<form th:action="@{/api/crud/products/form}" method="post" th:object="${product}">
+		<form th:action="@{/api/crud/products/form}" method="post" th:object="${product}" enctype="multipart/form-data">
 			<input th:if="${product.id != null}" type="hidden" th:field="*{id}" />
 			<div>
 				<label for="name">Name</label>
@@ -33,11 +35,33 @@
 				</div>
 			</div>
 			<div>
+				<label for="category.id">Category</label>
+				<div>
+					<select th:field="*{category.id}">
+						<option value="">-- Please, select a category --</option>
+						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">
+						</option>
+					</select>
+				</div>
+				<small th:if="${#fields.hasErrors('category.id')}" th:errors="*{category.id}"></small>
+			</div>
+			<div>
+				<label for="file">Image</label>
+				<div>
+					<input type="file" name="file" />
+				</div>
+			</div>
+			<div th:if="${product.image}">
+				<img style="max-width: 25%;" th:src="|data:image/jpeg;base64,${imageBase64}|" alt="Product Image">
+			</div>
+			<div>
 				<div>
 					<input type="submit" th:value="${button}" />
 				</div>
 			</div>
+			<input th:if="${product.image != null}" type="hidden" th:field="*{image}" />
 		</form>
 	</div>
 </body>
+
 </html>

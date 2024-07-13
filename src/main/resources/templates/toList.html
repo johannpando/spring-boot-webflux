@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title th:text="${title}"></title>
+	<meta charset="UTF-8">
+	<title th:text="${title}"></title>
 </head>
+
 <body>
-<h1 th:text="${title}"></h1>
 
-<h2><a th:href="@{/api/crud/products/form}">New product</a></h2>
+	<div th:if="${param.error != null}" th:text="${param.error}"></div>
+	<div th:if="${param.success != null}" th:text="${param.success}"></div>
+	<h1 th:text="${title}"></h1>
 
-<table>
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Name</th>
-			<th>Price</th>
-			<th>Create at</th>
-			<th>Update</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr th:each="product: ${products}">
-			<td th:text="${product.id}"></td>
-			<td th:text="${product.name}"></td>
-			<td th:text="${product.price}"></td>
-			<td th:text="${product.createAt}"></td>
-			<td><a th:href="@{/api/crud/products/form/} + ${product.id}">Update product</a></td>
-		</tr>
-	</tbody>
-</table>
+	<h2><a th:href="@{/api/crud/products/form}">New product</a></h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Create at</th>
+				<th>Category</th>
+				<th>Update</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="product: ${products}">
+				<td th:text="${product.id}"></td>
+				<td th:text="${product.name}"></td>
+				<td th:text="${product.price}"></td>
+				<td th:text="${product.createAt}"></td>
+				<td th:text="${product.category.name}"></td>
+				<td><a th:href="@{/api/crud/products/form/} + ${product.id}">Update product</a></td>
+				<td><a th:href="@{/api/crud/products/} + ${product.id}"
+						onclick="return confirm('Are you sure you want to delete the product?');">Delete product</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
+
 </html>
